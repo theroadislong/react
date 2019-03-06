@@ -1,6 +1,6 @@
 import React from "react";
-import TableRow from "../TableRow/TableRow";
 import axios from "axios";
+import { TableRow } from "../TableRow/TableRow";
 import { table, table__row, table__head } from "./Table.module.scss";
 
 
