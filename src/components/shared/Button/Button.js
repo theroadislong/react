@@ -11,7 +11,7 @@ class Button extends React.Component {
             'btn--complete': isComplete
         });
         return (
-            <button className={btnClass}>{text}</button>
+            <button onClick={this.props.onButtonClick} className={btnClass}>{text}</button>
         )
     }
 }

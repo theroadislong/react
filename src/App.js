@@ -5,10 +5,10 @@ import Main from "./routes/Main";
 class App extends Component {
 	render() {
 		return (
-			<div>
+			<React.Fragment>
 				<Header />
 				<Main />
-			</div>
+			</React.Fragment>
 		);
 	}
 }
