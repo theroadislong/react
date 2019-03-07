@@ -1,40 +1,47 @@
 import React from "react";
-import axios from "axios";
 import { TableRow } from "../TableRow/TableRow";
-import { table, table__row, table__head } from "./Table.module.scss";
-
+import "./Table.scss";
+import Spinner from "../../shared/Spinner/Spinner";
+import getData from "../../../api/api";
 
 class Table extends React.Component {
 	state = {
-		data: null
+		data: [],
+		isLoaded: false
 	};
 	componentDidMount() {
-		axios
-			.get("https://api.punkapi.com/v2/beers")
-				.then(result => this.setState({ data: result.data }))
-				.catch(error => console.log(error));
+		setTimeout(()=> {
+			getData().then(result =>
+				this.setState({ data: result.data, isLoaded: true })
+			);
+		}, 1000)
 	}
 	render() {
-		const { data } = this.state;
-		return (
-			<table className={table}>
-				<thead>
-					<tr className={table__row}>
-						<th className={table__head}>id</th>
-						<th className={table__head}>name</th>
-						<th className={table__head}>first brewed</th>
-						<th className={table__head}>abv</th>
-						<th className={table__head}>ibu</th>
-						<th className={table__head}>ph</th>
-						<th className={table__head}>srm</th>
-						<th className={table__head}>tagline</th>
-					</tr>
-				</thead>
-				<tbody>
-					{data && data.map(item => <TableRow key={item.id} data={item} />)}
-				</tbody>
-			</table>
-		);
+		const { data, isLoaded } = this.state;
+
+		if (!isLoaded) {
+			return <Spinner />;
+		} else {
+			return (
+				<table className="table">
+					<thead>
+						<tr className="table__row">
+							<th className="table__head">id</th>
+							<th className="table__head">name</th>
+							<th className="table__head">first brewed</th>
+							<th className="table__head">abv</th>
+							<th className="table__head">ibu</th>
+							<th className="table__head">ph</th>
+							<th className="table__head">srm</th>
+							<th className="table__head">tagline</th>
+						</tr>
+					</thead>
+					<tbody>
+						{data && data.map(item => <TableRow key={item.id} data={item} />)}
+					</tbody>
+				</table>
+			);
+		}
 	}
 }
 
