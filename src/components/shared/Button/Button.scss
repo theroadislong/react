@@ -33,9 +33,11 @@
         border-color: #ff4d4f;
     }
 
-    &--complete {
-        color: white;
-        background-color: #00C764;
+    &--icon {
+        padding-left: 50px;
+        background-repeat: no-repeat;
+        background-size: 35px;
+        background-position: 5px 5px;
     }
 }
 

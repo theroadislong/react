@@ -1,21 +1,19 @@
 import React from "react";
 import { TableRow } from "../TableRow/TableRow";
 import Button from "../../shared/Button/Button";
-import getData from "../../../api/api";
 import "./Table.scss";
 
 class Table extends React.Component {
 	state = {
-		data: [],
-		isLoaded: false
+		tableShow: false
 	};
-	loadDataFromApi = () => {
-		getData().then(result =>
-			this.setState({ data: result.data, isLoaded: true })
-		);
-	}
+	handleClick = () => {
+		this.setState({
+			tableShow: !this.state.tableShow
+		});
+	};
 	render() {
-		const { data } = this.state;
+		const data = this.props.data;
 		const tableHead = (
 			<thead>
 				<tr className="table__row">
@@ -35,13 +33,23 @@ class Table extends React.Component {
 				{data && data.map(item => <TableRow key={item.id} data={item} />)}
 			</tbody>
 		);
+		const button = (
+			<Button
+				text={this.state.tableShow ? "Hide table" : "Show table"}
+				type="blue"
+				onButtonClick={this.handleClick}
+			/>
+		);
 		return (
 			<React.Fragment>
-				{!this.state.isLoaded && <Button text="Загрузить данные" type="blue" onButtonClick={this.loadDataFromApi}/>}
-				{this.state.isLoaded && <table className="table">
-					{tableHead}
-					{tableBody}
-				</table>}
+				{this.state.tableShow}
+				{button}
+				{this.state.tableShow && (
+					<table className="table">
+						{tableHead}
+						{tableBody}
+					</table>
+				)}
 			</React.Fragment>
 		);
 	}
