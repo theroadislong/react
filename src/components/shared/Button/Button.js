@@ -11,7 +11,7 @@ class Button extends React.Component {
 			"btn--icon": withIcon
 		});
 		const iconStyles = {
-			backgroundImage: `url(../../../assets/icons/${iconUrl})`
+			backgroundImage: `url(./assets/icons/${iconUrl})`
 		};
 		const button = (
 			<button
